@@ -1,0 +1,37 @@
+# The shocked circle (src/residuals/toy.py): data on the unit circle in the first two coordinates
+# of R^D, residual (||x||^2 - 1) g(x) with stiffness profile g. The paper's toy protocol.
+gov_eqs: toy
+toy_profile: graded       # graded or flat (narrow, widths also available)
+toy_dim: 10               # the paper uses D = 10 and D = 2
+toy_num_samples: 20000
+toy_valid_samples: 20000
+
+method: anchored          # anchored, pidm, dm, or lin / norm for the ablation
+# Weight of the physics term; the paper's grid is 1e-3, 1e-2, 1e-1, 1 for every method.
+c_residual: 0.1
+c_data: 1.0
+diff_steps: 1000
+snr_gamma: 1000000.0      # SNR left unclipped: DDPM's own weighting, needed to resolve a thin manifold
+
+train_iterations: 100000
+train_batch_size: 512
+learning_rate: 0.001
+ema_decay: 0.999
+ema_start: 0
+seed: 0
+physics_probe_seed: 0
+holdout_size: 0
+
+test_eval_freq: 1000
+checkpoint_freq: 10000
+sample_residual_freq: 10000
+sample_count: 2000
+log_freq: 100
+
+# the paper's toy table: 40000 samples with the full 1000-step sampler
+generate_after_training: true
+generation_num_samples: 40000
+generation_eval_batch_size: 5000
+
+name: run
+wandb_track: false

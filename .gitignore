@@ -1,0 +1,14 @@
+# data, runs and everything they produce
+data/
+trained_models*/
+results/
+wandb/
+logs/
+*.out
+*.err
+*.zip
+
+# editors and caches
+.vscode/
+__pycache__/
+*.pyc

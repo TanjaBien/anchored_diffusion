@@ -1,0 +1,31 @@
+name: anchored
+
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.11
+  - pip
+
+  - numpy
+  - pandas
+  - scipy
+  - tqdm
+  - matplotlib
+  - h5py
+  - pyyaml
+
+  # CUDA-enabled PyTorch
+  - pytorch
+  - pytorch-cuda=12.1
+
+  - pip:
+      - einops
+      - einops-exts
+      - rotary-embedding-torch
+      - findiff
+      - torchfsm==0.0.6      # spectral solvers of the advection and Burgers data generators
+      - wandb                # optional, for --wandb_track true

@@ -1,0 +1,38 @@
+# Darcy -div(K grad p) = f with zero-flux boundaries (data: PIDM's 10000 + 1000 fields, 64 x 64).
+# The residual is evaluated on the whole grid, the boundary conditions included.
+gov_eqs: darcy
+# Weight of the physics term. The paper's grids:
+#   anchored  1e3, 1e4, 1e5, 1e6, 1e7
+#   pidm      1e-7, 1e-6, 1e-5, 1e-4, 1e-3
+c_residual: 100000.0
+
+# The paper's protocol for the PDEs: a fixed budget of 100k iterations, evaluated at the final step on
+# 1000 generated samples. Seed 0 for the weights, the data split and the normalisation's tangents.
+method: anchored          # anchored, pidm, dm, or lin / norm for the ablation (src/methods/registry.py)
+c_data: 1.0
+diff_steps: 100
+snr_gamma: 5.0            # data term weighted by min(SNR_t, 5)
+
+train_iterations: 100000
+train_batch_size: 8
+learning_rate: 0.0001
+seed: 0
+data_split_seed: 0
+physics_probe_seed: 0
+physics_probes: 1
+# 256 training fields are left out of training in every paper run
+holdout_size: 256
+holdout_seed: 12345
+
+test_eval_freq: 500
+checkpoint_freq: 5000
+sample_residual_freq: 5000
+sample_count: 9
+log_freq: 20
+generate_after_training: true
+generation_num_samples: 1000
+generation_eval_batch_size: 32
+
+name: run
+data_dir: ./data
+wandb_track: false
